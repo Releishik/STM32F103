@@ -1,0 +1,124 @@
+
+G:\ARM_Proj\Idle_project\src\main.o:     file format elf32-littlearm
+
+SYMBOL TABLE:
+00000000 l    d  .bss	00000000 .bss
+00000000 l    d  .rodata	00000000 .rodata
+000000a6 l       .rodata	00000000 wait
+00000076 l       .rodata	00000000 mainLoop
+00000082 l       .rodata	00000000 delay1
+0000009a l       .rodata	00000000 delay2
+000000b2 l       .rodata	00000000 bittst
+000000c2 l       .rodata	00000000 wend
+00000000 g       .rodata	00000000 Reset_Handler
+000000a4 g       .rodata	00000000 Default_Handler
+
+
+
+Disassembly of section .rodata:
+
+00000000 <Reset_Handler>:
+   0:	f04f 0001 	mov.w	r0, #1
+   4:	4931      	ldr	r1, [pc, #196]	; (cc <wend+0xa>)
+   6:	4a32      	ldr	r2, [pc, #200]	; (d0 <SW_AHB128>)
+   8:	4b32      	ldr	r3, [pc, #200]	; (d4 <SW_AHB128+0x4>)
+   a:	4c33      	ldr	r4, [pc, #204]	; (d8 <SW_AHB128+0x8>)
+   c:	6410      	str	r0, [r2, #64]	; 0x40
+   e:	f102 0544 	add.w	r5, r2, #68	; 0x44
+  12:	b420      	push	{r5}
+  14:	f000 f847 	bl	a6 <wait>
+  18:	b001      	add	sp, #4
+  1a:	680d      	ldr	r5, [r1, #0]
+  1c:	4e2f      	ldr	r6, [pc, #188]	; (dc <SW_AHB128+0xc>)
+  1e:	ea45 0506 	orr.w	r5, r5, r6
+  22:	600d      	str	r5, [r1, #0]
+  24:	6120      	str	r0, [r4, #16]
+  26:	6060      	str	r0, [r4, #4]
+  28:	6610      	str	r0, [r2, #96]	; 0x60
+  2a:	f102 0564 	add.w	r5, r2, #100	; 0x64
+  2e:	b420      	push	{r5}
+  30:	f000 f839 	bl	a6 <wait>
+  34:	b001      	add	sp, #4
+  36:	6058      	str	r0, [r3, #4]
+  38:	f103 050c 	add.w	r5, r3, #12
+  3c:	b420      	push	{r5}
+  3e:	f000 f832 	bl	a6 <wait>
+  42:	b001      	add	sp, #4
+  44:	4a26      	ldr	r2, [pc, #152]	; (e0 <SW_AHB256>)
+  46:	6010      	str	r0, [r2, #0]
+  48:	4a26      	ldr	r2, [pc, #152]	; (e4 <SW_AHB256+0x4>)
+  4a:	6010      	str	r0, [r2, #0]
+  4c:	ea81 0101 	eor.w	r1, r1, r1
+  50:	ea82 0202 	eor.w	r2, r2, r2
+  54:	ea83 0303 	eor.w	r3, r3, r3
+  58:	ea84 0404 	eor.w	r4, r4, r4
+  5c:	ea85 0505 	eor.w	r5, r5, r5
+  60:	4921      	ldr	r1, [pc, #132]	; (e8 <SW_AHB256+0x8>)
+  62:	6809      	ldr	r1, [r1, #0]
+  64:	4a19      	ldr	r2, [pc, #100]	; (cc <wend+0xa>)
+  66:	6812      	ldr	r2, [r2, #0]
+  68:	4b20      	ldr	r3, [pc, #128]	; (ec <SW_AHB256+0xc>)
+  6a:	681b      	ldr	r3, [r3, #0]
+  6c:	4c20      	ldr	r4, [pc, #128]	; (f0 <SW_AHB512>)
+  6e:	6824      	ldr	r4, [r4, #0]
+  70:	4d20      	ldr	r5, [pc, #128]	; (f4 <SW_AHB512+0x4>)
+  72:	682d      	ldr	r5, [r5, #0]
+  74:	4e20      	ldr	r6, [pc, #128]	; (f8 <SW_AHB512+0x8>)
+
+00000076 <mainLoop>:
+  76:	6831      	ldr	r1, [r6, #0]
+  78:	f441 5180 	orr.w	r1, r1, #4096	; 0x1000
+  7c:	6031      	str	r1, [r6, #0]
+  7e:	f04f 5780 	mov.w	r7, #268435456	; 0x10000000
+
+00000082 <delay1>:
+  82:	f1a7 0701 	sub.w	r7, r7, #1
+  86:	2f00      	cmp	r7, #0
+  88:	d1fb      	bne.n	82 <delay1>
+  8a:	6831      	ldr	r1, [r6, #0]
+  8c:	f646 72ff 	movw	r2, #28671	; 0x6fff
+  90:	ea01 0102 	and.w	r1, r1, r2
+  94:	6031      	str	r1, [r6, #0]
+  96:	f04f 5780 	mov.w	r7, #268435456	; 0x10000000
+
+0000009a <delay2>:
+  9a:	f1a7 0701 	sub.w	r7, r7, #1
+  9e:	2f00      	cmp	r7, #0
+  a0:	d1fb      	bne.n	9a <delay2>
+  a2:	e7e8      	b.n	76 <mainLoop>
+
+000000a4 <Default_Handler>:
+  a4:	4770      	bx	lr
+
+000000a6 <wait>:
+  a6:	b41c      	push	{r2, r3, r4}
+  a8:	9a03      	ldr	r2, [sp, #12]
+  aa:	f04f 0301 	mov.w	r3, #1
+  ae:	eb03 3303 	add.w	r3, r3, r3, lsl #12
+
+000000b2 <bittst>:
+  b2:	3b01      	subs	r3, #1
+  b4:	d005      	beq.n	c2 <wend>
+  b6:	6814      	ldr	r4, [r2, #0]
+  b8:	f014 0f01 	tst.w	r4, #1
+  bc:	d0f9      	beq.n	b2 <bittst>
+  be:	bc1c      	pop	{r2, r3, r4}
+  c0:	4770      	bx	lr
+
+000000c2 <wend>:
+  c2:	f04f 36ff 	mov.w	r6, #4294967295
+  c6:	bc1c      	pop	{r2, r3, r4}
+  c8:	4770      	bx	lr
+  ca:	0000      	.short	0x0000
+  cc:	40021004 	.word	0x40021004
+  d0:	42420000 	.word	0x42420000
+  d4:	42420080 	.word	0x42420080
+  d8:	42440000 	.word	0x42440000
+  dc:	001d8400 	.word	0x001d8400
+  e0:	42420310 	.word	0x42420310
+  e4:	422200d4 	.word	0x422200d4
+  e8:	40021000 	.word	0x40021000
+  ec:	40022000 	.word	0x40022000
+  f0:	40021018 	.word	0x40021018
+  f4:	40011004 	.word	0x40011004
+  f8:	4001100c 	.word	0x4001100c

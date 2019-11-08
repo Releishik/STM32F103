@@ -1,0 +1,14 @@
+
+G:\ARM_Proj\Idle_project\src\vetorsTable.o:     file format elf32-littlearm
+
+SYMBOL TABLE:
+00000000 l    d  .bss	00000000 .bss
+00000000 l    d  .vectors	00000000 .vectors
+
+
+
+Disassembly of section .vectors:
+
+00000000 <.vectors>:
+   0:	20005000 	.word	0x20005000
+	...
