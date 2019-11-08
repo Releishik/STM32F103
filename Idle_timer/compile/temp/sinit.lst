@@ -1,0 +1,154 @@
+
+G:\ARM_Proj\Idle_timer\src\sinit.o:     file format elf32-littlearm
+
+SYMBOL TABLE:
+00000000 l    d  .bss	00000000 .bss
+00000000 l    d  .rodata	00000000 .rodata
+0000004a l       .rodata	00000000 w01
+0000005c l       .rodata	00000000 wend
+00000084 l       .rodata	00000000 L01
+000000ec l       .rodata	00000000 del01
+00000000 g       .bss	00000000 timerActivated
+00000004 g       .bss	00000000 timDelayValue
+00000000 g       .rodata	00000000 SystemInit72
+00000040 g       .rodata	00000000 wait
+00000092 g       .rodata	00000000 tim2Init
+00000066 g       .rodata	00000000 TIM2_IRQHandler
+000000c8 g       .rodata	00000000 Delay
+
+
+
+Disassembly of section .bss:
+
+00000000 <timerActivated>:
+   0:	00000000 	.word	0x00000000
+
+00000004 <timDelayValue>:
+   4:	00000000 	.word	0x00000000
+
+Disassembly of section .rodata:
+
+00000000 <SystemInit72>:
+   0:	b57f      	push	{r0, r1, r2, r3, r4, r5, r6, lr}
+   2:	f04f 0001 	mov.w	r0, #1
+   6:	493c      	ldr	r1, [pc, #240]	; (f8 <del01+0xc>)
+   8:	4a3c      	ldr	r2, [pc, #240]	; (fc <del01+0x10>)
+   a:	4b3d      	ldr	r3, [pc, #244]	; (100 <del01+0x14>)
+   c:	4c3d      	ldr	r4, [pc, #244]	; (104 <del01+0x18>)
+   e:	6410      	str	r0, [r2, #64]	; 0x40
+  10:	f102 0544 	add.w	r5, r2, #68	; 0x44
+  14:	f7ff fffe 	bl	40 <wait>
+  18:	680d      	ldr	r5, [r1, #0]
+  1a:	4e3b      	ldr	r6, [pc, #236]	; (108 <del01+0x1c>)
+  1c:	ea45 0506 	orr.w	r5, r5, r6
+  20:	600d      	str	r5, [r1, #0]
+  22:	6120      	str	r0, [r4, #16]
+  24:	6060      	str	r0, [r4, #4]
+  26:	6610      	str	r0, [r2, #96]	; 0x60
+  28:	f102 0564 	add.w	r5, r2, #100	; 0x64
+  2c:	f7ff fffe 	bl	40 <wait>
+  30:	6058      	str	r0, [r3, #4]
+  32:	f103 050c 	add.w	r5, r3, #12
+  36:	f7ff fffe 	bl	40 <wait>
+  3a:	e8bd 407f 	ldmia.w	sp!, {r0, r1, r2, r3, r4, r5, r6, lr}
+  3e:	4770      	bx	lr
+
+00000040 <wait>:
+  40:	b51c      	push	{r2, r3, r4, lr}
+  42:	f04f 0301 	mov.w	r3, #1
+  46:	eb03 3303 	add.w	r3, r3, r3, lsl #12
+
+0000004a <w01>:
+  4a:	3b01      	subs	r3, #1
+  4c:	d006      	beq.n	5c <wend>
+  4e:	682c      	ldr	r4, [r5, #0]
+  50:	f014 0f01 	tst.w	r4, #1
+  54:	d0f9      	beq.n	4a <w01>
+  56:	e8bd 401c 	ldmia.w	sp!, {r2, r3, r4, lr}
+  5a:	4770      	bx	lr
+
+0000005c <wend>:
+  5c:	f04f 36ff 	mov.w	r6, #4294967295
+  60:	e8bd 401c 	ldmia.w	sp!, {r2, r3, r4, lr}
+  64:	4770      	bx	lr
+
+00000066 <TIM2_IRQHandler>:
+  66:	b507      	push	{r0, r1, r2, lr}
+  68:	f04f 5080 	mov.w	r0, #268435456	; 0x10000000
+  6c:	4927      	ldr	r1, [pc, #156]	; (10c <del01+0x20>)
+  6e:	680a      	ldr	r2, [r1, #0]
+  70:	4202      	tst	r2, r0
+  72:	bf1c      	itt	ne
+  74:	4925      	ldrne	r1, [pc, #148]	; (10c <del01+0x20>)
+  76:	6008      	strne	r0, [r1, #0]
+  78:	bf00      	nop
+  7a:	4825      	ldr	r0, [pc, #148]	; (110 <del01+0x24>)
+  7c:	6801      	ldr	r1, [r0, #0]
+  7e:	f101 0101 	add.w	r1, r1, #1
+  82:	6001      	str	r1, [r0, #0]
+
+00000084 <L01>:
+  84:	4823      	ldr	r0, [pc, #140]	; (114 <del01+0x28>)
+  86:	ea81 0101 	eor.w	r1, r1, r1
+  8a:	6001      	str	r1, [r0, #0]
+  8c:	e8bd 4007 	ldmia.w	sp!, {r0, r1, r2, lr}
+  90:	4770      	bx	lr
+
+00000092 <tim2Init>:
+  92:	b50f      	push	{r0, r1, r2, r3, lr}
+  94:	f04f 0001 	mov.w	r0, #1
+  98:	491f      	ldr	r1, [pc, #124]	; (118 <del01+0x2c>)
+  9a:	6008      	str	r0, [r1, #0]
+  9c:	f04f 4184 	mov.w	r1, #1107296256	; 0x42000000
+  a0:	4a1e      	ldr	r2, [pc, #120]	; (11c <del01+0x30>)
+  a2:	6048      	str	r0, [r1, #4]
+  a4:	6088      	str	r0, [r1, #8]
+  a6:	4a1e      	ldr	r2, [pc, #120]	; (120 <del01+0x34>)
+  a8:	f04f 0300 	mov.w	r3, #0
+  ac:	6013      	str	r3, [r2, #0]
+  ae:	4a1d      	ldr	r2, [pc, #116]	; (124 <del01+0x38>)
+  b0:	f648 439f 	movw	r3, #35999	; 0x8c9f
+  b4:	6013      	str	r3, [r2, #0]
+  b6:	f04f 4184 	mov.w	r1, #1107296256	; 0x42000000
+  ba:	6008      	str	r0, [r1, #0]
+  bc:	f04f 0000 	mov.w	r0, #0
+  c0:	6048      	str	r0, [r1, #4]
+  c2:	e8bd 400f 	ldmia.w	sp!, {r0, r1, r2, r3, lr}
+  c6:	4770      	bx	lr
+
+000000c8 <Delay>:
+  c8:	b50f      	push	{r0, r1, r2, r3, lr}
+  ca:	4817      	ldr	r0, [pc, #92]	; (128 <del01+0x3c>)
+  cc:	4a10      	ldr	r2, [pc, #64]	; (110 <del01+0x24>)
+  ce:	ea81 0101 	eor.w	r1, r1, r1
+  d2:	6011      	str	r1, [r2, #0]
+  d4:	f04f 0101 	mov.w	r1, #1
+  d8:	6803      	ldr	r3, [r0, #0]
+  da:	2b00      	cmp	r3, #0
+  dc:	d106      	bne.n	ec <del01>
+  de:	b420      	push	{r5}
+  e0:	f7ff fffe 	bl	92 <tim2Init>
+  e4:	420d      	tst	r5, r1
+  e6:	bf18      	it	ne
+  e8:	6001      	strne	r1, [r0, #0]
+  ea:	bc20      	pop	{r5}
+
+000000ec <del01>:
+  ec:	6811      	ldr	r1, [r2, #0]
+  ee:	42a9      	cmp	r1, r5
+  f0:	d1fc      	bne.n	ec <del01>
+  f2:	e8bd 400f 	ldmia.w	sp!, {r0, r1, r2, r3, lr}
+  f6:	4770      	bx	lr
+  f8:	40021004 	.word	0x40021004
+  fc:	42420000 	.word	0x42420000
+ 100:	42420080 	.word	0x42420080
+ 104:	42440000 	.word	0x42440000
+ 108:	001d8400 	.word	0x001d8400
+ 10c:	e000e280 	.word	0xe000e280
+ 110:	00000000 	.word	0x00000000
+ 114:	42000200 	.word	0x42000200
+ 118:	42420380 	.word	0x42420380
+ 11c:	42000180 	.word	0x42000180
+ 120:	4000002c 	.word	0x4000002c
+ 124:	40000028 	.word	0x40000028
+ 128:	00000000 	.word	0x00000000

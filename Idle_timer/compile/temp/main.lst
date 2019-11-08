@@ -1,0 +1,44 @@
+
+G:\ARM_Proj\Idle_timer\src\main.o:     file format elf32-littlearm
+
+SYMBOL TABLE:
+00000000 l    d  .bss	00000000 .bss
+00000000 l    d  .rodata	00000000 .rodata
+0000000a l       .rodata	00000000 mainLoop
+00000012 l       .rodata	00000000 isSteelCount
+00000000 g       .rodata	00000000 Reset_Handler
+00000024 g       .rodata	00000000 Default_Handler
+
+
+
+Disassembly of section .rodata:
+
+00000000 <Reset_Handler>:
+   0:	f7ff fffe 	bl	0 <SystemInit72>
+   4:	f7ff fffe 	bl	0 <tim2Init>
+   8:	4808      	ldr	r0, [pc, #32]	; (2c <Default_Handler+0x8>)
+
+0000000a <mainLoop>:
+   a:	4909      	ldr	r1, [pc, #36]	; (30 <Default_Handler+0xc>)
+   c:	f242 7210 	movw	r2, #10000	; 0x2710
+  10:	800a      	strh	r2, [r1, #0]
+
+00000012 <isSteelCount>:
+  12:	6802      	ldr	r2, [r0, #0]
+  14:	2a01      	cmp	r2, #1
+  16:	d1fc      	bne.n	12 <isSteelCount>
+  18:	f04f 0200 	mov.w	r2, #0
+  1c:	800a      	strh	r2, [r1, #0]
+  1e:	6002      	str	r2, [r0, #0]
+  20:	4b04      	ldr	r3, [pc, #16]	; (34 <Default_Handler+0x10>)
+  22:	e7f2      	b.n	a <mainLoop>
+
+00000024 <Default_Handler>:
+  24:	4e04      	ldr	r6, [pc, #16]	; (38 <Default_Handler+0x14>)
+  26:	6836      	ldr	r6, [r6, #0]
+  28:	4770      	bx	lr
+  2a:	0000      	.short	0x0000
+  2c:	42000200 	.word	0x42000200
+  30:	4000002c 	.word	0x4000002c
+  34:	deadbeef 	.word	0xdeadbeef
+  38:	e000ed04 	.word	0xe000ed04
