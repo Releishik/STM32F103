@@ -1,0 +1,173 @@
+
+G:\ARM_Proj\RTC\src\gpios.o:     file format elf32-littlearm
+
+SYMBOL TABLE:
+00000000 l    d  .bss	00000000 .bss
+00000000 l    d  .rodata	00000000 .rodata
+00000056 l       .rodata	00000000 pin0_7
+000000f0 l       .rodata	00000000 si_exit
+000000ec l       .rodata	00000000 isRise
+00000000 g       .rodata	00000000 iPortClock
+00000020 g       .rodata	00000000 PortClock
+00000038 g       .rodata	00000000 PortConfigure
+0000009a g       .rodata	00000000 SetInterrupt0_5
+000000f6 g       .rodata	00000000 EXTI0_IRQHandler
+0000010a g       .rodata	00000000 EXTI1_IRQHandler
+0000011e g       .rodata	00000000 EXTI2_IRQHandler
+00000132 g       .rodata	00000000 EXTI3_IRQHandler
+00000146 g       .rodata	00000000 EXTI4_IRQHandler
+
+
+
+Disassembly of section .rodata:
+
+00000000 <iPortClock>:
+   0:	b50f      	push	{r0, r1, r2, r3, lr}
+   2:	4856      	ldr	r0, [pc, #344]	; (15c <EXTI4_IRQHandler+0x16>)
+   4:	f04f 0101 	mov.w	r1, #1
+   8:	6802      	ldr	r2, [r0, #0]
+   a:	428a      	cmp	r2, r1
+   c:	bf18      	it	ne
+   e:	6001      	strne	r1, [r0, #0]
+  10:	f105 0202 	add.w	r2, r5, #2
+  14:	ea4f 0282 	mov.w	r2, r2, lsl #2
+  18:	5081      	str	r1, [r0, r2]
+  1a:	e8bd 400f 	ldmia.w	sp!, {r0, r1, r2, r3, lr}
+  1e:	4770      	bx	lr
+
+00000020 <PortClock>:
+  20:	b50f      	push	{r0, r1, r2, r3, lr}
+  22:	484e      	ldr	r0, [pc, #312]	; (15c <EXTI4_IRQHandler+0x16>)
+  24:	f04f 0101 	mov.w	r1, #1
+  28:	f105 0202 	add.w	r2, r5, #2
+  2c:	ea4f 0282 	mov.w	r2, r2, lsl #2
+  30:	5081      	str	r1, [r0, r2]
+  32:	e8bd 400f 	ldmia.w	sp!, {r0, r1, r2, r3, lr}
+  36:	4770      	bx	lr
+
+00000038 <PortConfigure>:
+  38:	b57f      	push	{r0, r1, r2, r3, r4, r5, r6, lr}
+  3a:	4d49      	ldr	r5, [pc, #292]	; (160 <EXTI4_IRQHandler+0x1a>)
+  3c:	f44f 6680 	mov.w	r6, #1024	; 0x400
+  40:	fb06 f404 	mul.w	r4, r6, r4
+  44:	4425      	add	r5, r4
+  46:	f105 0404 	add.w	r4, r5, #4
+  4a:	461e      	mov	r6, r3
+  4c:	2b08      	cmp	r3, #8
+  4e:	d402      	bmi.n	56 <pin0_7>
+  50:	f1a3 0308 	sub.w	r3, r3, #8
+  54:	4625      	mov	r5, r4
+
+00000056 <pin0_7>:
+  56:	ea4f 0383 	mov.w	r3, r3, lsl #2
+  5a:	ea4f 0181 	mov.w	r1, r1, lsl #2
+  5e:	ea40 0001 	orr.w	r0, r0, r1
+  62:	fa00 f003 	lsl.w	r0, r0, r3
+  66:	f06f 040f 	mvn.w	r4, #15
+  6a:	f1c3 0320 	rsb	r3, r3, #32
+  6e:	fa64 f403 	ror.w	r4, r4, r3
+  72:	6829      	ldr	r1, [r5, #0]
+  74:	ea01 0104 	and.w	r1, r1, r4
+  78:	ea41 0100 	orr.w	r1, r1, r0
+  7c:	6029      	str	r1, [r5, #0]
+  7e:	f105 040c 	add.w	r4, r5, #12
+  82:	ea4f 1444 	mov.w	r4, r4, lsl #5
+  86:	ea4f 0686 	mov.w	r6, r6, lsl #2
+  8a:	4434      	add	r4, r6
+  8c:	f04f 4684 	mov.w	r6, #1107296256	; 0x42000000
+  90:	4434      	add	r4, r6
+  92:	6022      	str	r2, [r4, #0]
+  94:	e8bd 407f 	ldmia.w	sp!, {r0, r1, r2, r3, r4, r5, r6, lr}
+  98:	4770      	bx	lr
+
+0000009a <SetInterrupt0_5>:
+  9a:	b53f      	push	{r0, r1, r2, r3, r4, r5, lr}
+  9c:	2804      	cmp	r0, #4
+  9e:	d527      	bpl.n	f0 <si_exit>
+  a0:	4a30      	ldr	r2, [pc, #192]	; (164 <EXTI4_IRQHandler+0x1e>)
+  a2:	f06f 0401 	mvn.w	r4, #1
+  a6:	f100 0306 	add.w	r3, r0, #6
+  aa:	f1c3 0320 	rsb	r3, r3, #32
+  ae:	fa64 f403 	ror.w	r4, r4, r3
+  b2:	f04f 0501 	mov.w	r5, #1
+  b6:	fa65 f503 	ror.w	r5, r5, r3
+  ba:	6813      	ldr	r3, [r2, #0]
+  bc:	ea03 0304 	and.w	r3, r3, r4
+  c0:	ea43 0305 	orr.w	r3, r3, r5
+  c4:	6013      	str	r3, [r2, #0]
+  c6:	f100 0306 	add.w	r3, r0, #6
+  ca:	f04f 0420 	mov.w	r4, #32
+  ce:	4d26      	ldr	r5, [pc, #152]	; (168 <EXTI4_IRQHandler+0x22>)
+  d0:	54ec      	strb	r4, [r5, r3]
+  d2:	f04f 0201 	mov.w	r2, #1
+  d6:	4b25      	ldr	r3, [pc, #148]	; (16c <EXTI4_IRQHandler+0x26>)
+  d8:	ea4f 0080 	mov.w	r0, r0, lsl #2
+  dc:	501a      	str	r2, [r3, r0]
+  de:	4291      	cmp	r1, r2
+  e0:	d004      	beq.n	ec <isRise>
+  e2:	4b23      	ldr	r3, [pc, #140]	; (170 <EXTI4_IRQHandler+0x2a>)
+  e4:	501a      	str	r2, [r3, r0]
+  e6:	e8bd 403f 	ldmia.w	sp!, {r0, r1, r2, r3, r4, r5, lr}
+  ea:	4770      	bx	lr
+
+000000ec <isRise>:
+  ec:	4b21      	ldr	r3, [pc, #132]	; (174 <EXTI4_IRQHandler+0x2e>)
+  ee:	501a      	str	r2, [r3, r0]
+
+000000f0 <si_exit>:
+  f0:	e8bd 403f 	ldmia.w	sp!, {r0, r1, r2, r3, r4, r5, lr}
+  f4:	4770      	bx	lr
+
+000000f6 <EXTI0_IRQHandler>:
+  f6:	b53f      	push	{r0, r1, r2, r3, r4, r5, lr}
+  f8:	f04f 07b1 	mov.w	r7, #177	; 0xb1
+  fc:	f04f 0101 	mov.w	r1, #1
+ 100:	481d      	ldr	r0, [pc, #116]	; (178 <EXTI4_IRQHandler+0x32>)
+ 102:	6001      	str	r1, [r0, #0]
+ 104:	e8bd 403f 	ldmia.w	sp!, {r0, r1, r2, r3, r4, r5, lr}
+ 108:	4770      	bx	lr
+
+0000010a <EXTI1_IRQHandler>:
+ 10a:	b53f      	push	{r0, r1, r2, r3, r4, r5, lr}
+ 10c:	f04f 07b2 	mov.w	r7, #178	; 0xb2
+ 110:	f04f 0102 	mov.w	r1, #2
+ 114:	4818      	ldr	r0, [pc, #96]	; (178 <EXTI4_IRQHandler+0x32>)
+ 116:	6001      	str	r1, [r0, #0]
+ 118:	e8bd 403f 	ldmia.w	sp!, {r0, r1, r2, r3, r4, r5, lr}
+ 11c:	4770      	bx	lr
+
+0000011e <EXTI2_IRQHandler>:
+ 11e:	b53f      	push	{r0, r1, r2, r3, r4, r5, lr}
+ 120:	f04f 07b3 	mov.w	r7, #179	; 0xb3
+ 124:	f04f 0104 	mov.w	r1, #4
+ 128:	4813      	ldr	r0, [pc, #76]	; (178 <EXTI4_IRQHandler+0x32>)
+ 12a:	6001      	str	r1, [r0, #0]
+ 12c:	e8bd 403f 	ldmia.w	sp!, {r0, r1, r2, r3, r4, r5, lr}
+ 130:	4770      	bx	lr
+
+00000132 <EXTI3_IRQHandler>:
+ 132:	b53f      	push	{r0, r1, r2, r3, r4, r5, lr}
+ 134:	f04f 07b4 	mov.w	r7, #180	; 0xb4
+ 138:	f04f 0108 	mov.w	r1, #8
+ 13c:	480e      	ldr	r0, [pc, #56]	; (178 <EXTI4_IRQHandler+0x32>)
+ 13e:	6001      	str	r1, [r0, #0]
+ 140:	e8bd 403f 	ldmia.w	sp!, {r0, r1, r2, r3, r4, r5, lr}
+ 144:	4770      	bx	lr
+
+00000146 <EXTI4_IRQHandler>:
+ 146:	b53f      	push	{r0, r1, r2, r3, r4, r5, lr}
+ 148:	f04f 07b5 	mov.w	r7, #181	; 0xb5
+ 14c:	f04f 0110 	mov.w	r1, #16
+ 150:	4809      	ldr	r0, [pc, #36]	; (178 <EXTI4_IRQHandler+0x32>)
+ 152:	6001      	str	r1, [r0, #0]
+ 154:	e8bd 403f 	ldmia.w	sp!, {r0, r1, r2, r3, r4, r5, lr}
+ 158:	4770      	bx	lr
+ 15a:	0000      	.short	0x0000
+ 15c:	42420300 	.word	0x42420300
+ 160:	40010800 	.word	0x40010800
+ 164:	e000e100 	.word	0xe000e100
+ 168:	e000e400 	.word	0xe000e400
+ 16c:	42208000 	.word	0x42208000
+ 170:	42208180 	.word	0x42208180
+ 174:	42208100 	.word	0x42208100
+ 178:	40010414 	.word	0x40010414

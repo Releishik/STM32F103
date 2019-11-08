@@ -1,0 +1,128 @@
+
+G:\ARM_Proj\RTC\src\main.o:     file format elf32-littlearm
+
+SYMBOL TABLE:
+00000000 l    d  .bss	00000000 .bss
+00000000 l    d  .rodata	00000000 .rodata
+00000066 l       .rodata	00000000 counterOK
+0000008e l       .rodata	00000000 ports
+000000aa l       .rodata	00000000 ports_interrupt
+000000ba l       .rodata	00000000 mainLoop
+00000000 g       .rodata	00000000 Reset_Handler
+0000011a g       .rodata	00000000 Default_Handler
+
+
+
+Disassembly of section .rodata:
+
+00000000 <Reset_Handler>:
+   0:	f7ff fffe 	bl	0 <SystemInit72>
+   4:	f04f 0100 	mov.w	r1, #0
+   8:	f04f 0001 	mov.w	r0, #1
+   c:	4a48      	ldr	r2, [pc, #288]	; (130 <Default_Handler+0x16>)
+   e:	6010      	str	r0, [r2, #0]
+  10:	4a48      	ldr	r2, [pc, #288]	; (134 <Default_Handler+0x1a>)
+  12:	6010      	str	r0, [r2, #0]
+  14:	f7ff fffe 	bl	0 <RTC_init>
+  18:	4847      	ldr	r0, [pc, #284]	; (138 <Default_Handler+0x1e>)
+  1a:	f04f 010a 	mov.w	r1, #10
+  1e:	7001      	strb	r1, [r0, #0]
+  20:	4846      	ldr	r0, [pc, #280]	; (13c <Default_Handler+0x22>)
+  22:	f04f 010c 	mov.w	r1, #12
+  26:	7001      	strb	r1, [r0, #0]
+  28:	4845      	ldr	r0, [pc, #276]	; (140 <Default_Handler+0x26>)
+  2a:	f240 71e2 	movw	r1, #2018	; 0x7e2
+  2e:	6001      	str	r1, [r0, #0]
+  30:	4844      	ldr	r0, [pc, #272]	; (144 <Default_Handler+0x2a>)
+  32:	ea81 0101 	eor.w	r1, r1, r1
+  36:	7001      	strb	r1, [r0, #0]
+  38:	4843      	ldr	r0, [pc, #268]	; (148 <Default_Handler+0x2e>)
+  3a:	f04f 012a 	mov.w	r1, #42	; 0x2a
+  3e:	7001      	strb	r1, [r0, #0]
+  40:	4842      	ldr	r0, [pc, #264]	; (14c <Default_Handler+0x32>)
+  42:	f04f 0108 	mov.w	r1, #8
+  46:	7001      	strb	r1, [r0, #0]
+  48:	f7ff fffe 	bl	0 <timeToPosixWithData>
+  4c:	4840      	ldr	r0, [pc, #256]	; (150 <Default_Handler+0x36>)
+  4e:	6801      	ldr	r1, [r0, #0]
+  50:	460a      	mov	r2, r1
+  52:	f850 1c04 	ldr.w	r1, [r0, #-4]
+  56:	ea4f 4101 	mov.w	r1, r1, lsl #16
+  5a:	ea42 0201 	orr.w	r2, r2, r1
+  5e:	42aa      	cmp	r2, r5
+  60:	d501      	bpl.n	66 <counterOK>
+  62:	f7ff fffe 	bl	0 <setRTC_Counter>
+
+00000066 <counterOK>:
+  66:	f7ff fffe 	bl	0 <RTC_Clock>
+  6a:	f7ff fffe 	bl	0 <RTC_setInterrupt>
+  6e:	f04f 0500 	mov.w	r5, #0
+  72:	f7ff fffe 	bl	0 <iPortClock>
+  76:	f04f 0504 	mov.w	r5, #4
+  7a:	f04f 0000 	mov.w	r0, #0
+  7e:	f04f 0102 	mov.w	r1, #2
+  82:	f04f 0200 	mov.w	r2, #0
+  86:	f04f 0300 	mov.w	r3, #0
+  8a:	f04f 0400 	mov.w	r4, #0
+
+0000008e <ports>:
+  8e:	f7ff fffe 	bl	0 <PortConfigure>
+  92:	f103 0301 	add.w	r3, r3, #1
+  96:	f1a5 0501 	sub.w	r5, r5, #1
+  9a:	2d00      	cmp	r5, #0
+  9c:	d1f7      	bne.n	8e <ports>
+  9e:	f04f 0504 	mov.w	r5, #4
+  a2:	f04f 0000 	mov.w	r0, #0
+  a6:	f04f 0101 	mov.w	r1, #1
+
+000000aa <ports_interrupt>:
+  aa:	f7ff fffe 	bl	0 <SetInterrupt0_5>
+  ae:	f100 0001 	add.w	r0, r0, #1
+  b2:	f1a5 0501 	sub.w	r5, r5, #1
+  b6:	2d00      	cmp	r5, #0
+  b8:	d1f7      	bne.n	aa <ports_interrupt>
+
+000000ba <mainLoop>:
+  ba:	f04f 050a 	mov.w	r5, #10
+  be:	4823      	ldr	r0, [pc, #140]	; (14c <Default_Handler+0x32>)
+  c0:	7800      	ldrb	r0, [r0, #0]
+  c2:	fbb0 f3f5 	udiv	r3, r0, r5
+  c6:	fb03 f405 	mul.w	r4, r3, r5
+  ca:	eba0 0004 	sub.w	r0, r0, r4
+  ce:	ea4f 1303 	mov.w	r3, r3, lsl #4
+  d2:	ea40 0003 	orr.w	r0, r0, r3
+  d6:	ea4f 4000 	mov.w	r0, r0, lsl #16
+  da:	491b      	ldr	r1, [pc, #108]	; (148 <Default_Handler+0x2e>)
+  dc:	7809      	ldrb	r1, [r1, #0]
+  de:	fbb1 f3f5 	udiv	r3, r1, r5
+  e2:	fb03 f405 	mul.w	r4, r3, r5
+  e6:	eba1 0104 	sub.w	r1, r1, r4
+  ea:	ea4f 1303 	mov.w	r3, r3, lsl #4
+  ee:	ea41 0103 	orr.w	r1, r1, r3
+  f2:	ea4f 2101 	mov.w	r1, r1, lsl #8
+  f6:	4a13      	ldr	r2, [pc, #76]	; (144 <Default_Handler+0x2a>)
+  f8:	7812      	ldrb	r2, [r2, #0]
+  fa:	fbb2 f3f5 	udiv	r3, r2, r5
+  fe:	fb03 f405 	mul.w	r4, r3, r5
+ 102:	eba2 0204 	sub.w	r2, r2, r4
+ 106:	ea4f 1303 	mov.w	r3, r3, lsl #4
+ 10a:	ea42 0203 	orr.w	r2, r2, r3
+ 10e:	ea40 0001 	orr.w	r0, r0, r1
+ 112:	ea40 0002 	orr.w	r0, r0, r2
+ 116:	4606      	mov	r6, r0
+ 118:	e7cf      	b.n	ba <mainLoop>
+
+0000011a <Default_Handler>:
+ 11a:	b503      	push	{r0, r1, lr}
+ 11c:	4e0d      	ldr	r6, [pc, #52]	; (154 <Default_Handler+0x3a>)
+ 11e:	6836      	ldr	r6, [r6, #0]
+ 120:	f006 06ff 	and.w	r6, r6, #255	; 0xff
+ 124:	f1a6 0610 	sub.w	r6, r6, #16
+ 128:	e8bd 4003 	ldmia.w	sp!, {r0, r1, lr}
+ 12c:	4770      	bx	lr
+ 12e:	0000      	.short	0x0000
+ 130:	42420310 	.word	0x42420310
+ 134:	422200d4 	.word	0x422200d4
+	...
+ 150:	4000281c 	.word	0x4000281c
+ 154:	e000ed04 	.word	0xe000ed04

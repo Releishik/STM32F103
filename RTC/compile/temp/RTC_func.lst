@@ -1,0 +1,48 @@
+
+G:\ARM_Proj\RTC\src\RTC_func.o:     file format elf32-littlearm
+
+SYMBOL TABLE:
+00000000 l    d  .bss	00000000 .bss
+00000000 l    d  .rodata	00000000 .rodata
+00000000 g       .bss	00000000 seconds
+00000001 g       .bss	00000000 minutes
+00000002 g       .bss	00000000 hours
+00000003 g       .bss	00000000 day
+00000004 g       .bss	00000000 month
+00000005 g       .bss	00000000 year
+00000009 g       .bss	00000000 JDN
+0000000d g       .bss	00000000 posixTime
+
+
+
+Disassembly of section .bss:
+
+00000000 <seconds>:
+	...
+
+00000001 <minutes>:
+	...
+
+00000002 <hours>:
+	...
+
+00000003 <day>:
+	...
+
+00000004 <month>:
+	...
+
+00000005 <year>:
+   5:	00          	.byte	0x00
+   6:	0000      	.short	0x0000
+	...
+
+00000009 <JDN>:
+   9:	00          	.byte	0x00
+   a:	0000      	.short	0x0000
+	...
+
+0000000d <posixTime>:
+   d:	00          	.byte	0x00
+   e:	0000      	.short	0x0000
+	...

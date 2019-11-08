@@ -1,0 +1,184 @@
+
+G:\ARM_Proj\RTC\src\sinit.o:     file format elf32-littlearm
+
+SYMBOL TABLE:
+00000000 l    d  .bss	00000000 .bss
+00000000 l    d  .rodata	00000000 .rodata
+0000000a l       .rodata	00000000 lp001
+0000005a l       .rodata	00000000 w01
+0000006c l       .rodata	00000000 wend
+00000094 l       .rodata	00000000 L01
+00000124 l       .rodata	00000000 del01
+00000000 g       .bss	00000000 timerActivated
+00000004 g       .bss	00000000 timDelayValue
+00000008 g       .bss	00000000 buttonPushed
+00000000 g       .rodata	00000000 SystemInit72
+00000050 g       .rodata	00000000 wait
+000000a2 g       .rodata	00000000 tim2Init
+00000076 g       .rodata	00000000 TIM2_IRQHandler
+00000100 g       .rodata	00000000 Delay
+
+
+
+Disassembly of section .bss:
+
+00000000 <timerActivated>:
+   0:	00000000 	.word	0x00000000
+
+00000004 <timDelayValue>:
+   4:	00000000 	.word	0x00000000
+
+00000008 <buttonPushed>:
+   8:	00000000 	.word	0x00000000
+
+Disassembly of section .rodata:
+
+00000000 <SystemInit72>:
+   0:	b57f      	push	{r0, r1, r2, r3, r4, r5, r6, lr}
+   2:	ea80 0000 	eor.w	r0, r0, r0
+   6:	494a      	ldr	r1, [pc, #296]	; (130 <del01+0xc>)
+   8:	4a4a      	ldr	r2, [pc, #296]	; (134 <del01+0x10>)
+
+0000000a <lp001>:
+   a:	f801 0b01 	strb.w	r0, [r1], #1
+   e:	428a      	cmp	r2, r1
+  10:	d1fb      	bne.n	a <lp001>
+  12:	f04f 0001 	mov.w	r0, #1
+  16:	4948      	ldr	r1, [pc, #288]	; (138 <del01+0x14>)
+  18:	4a48      	ldr	r2, [pc, #288]	; (13c <del01+0x18>)
+  1a:	4b49      	ldr	r3, [pc, #292]	; (140 <del01+0x1c>)
+  1c:	4c49      	ldr	r4, [pc, #292]	; (144 <del01+0x20>)
+  1e:	6410      	str	r0, [r2, #64]	; 0x40
+  20:	f102 0544 	add.w	r5, r2, #68	; 0x44
+  24:	f7ff fffe 	bl	50 <wait>
+  28:	680d      	ldr	r5, [r1, #0]
+  2a:	4e47      	ldr	r6, [pc, #284]	; (148 <del01+0x24>)
+  2c:	ea45 0506 	orr.w	r5, r5, r6
+  30:	600d      	str	r5, [r1, #0]
+  32:	6120      	str	r0, [r4, #16]
+  34:	6060      	str	r0, [r4, #4]
+  36:	6610      	str	r0, [r2, #96]	; 0x60
+  38:	f102 0564 	add.w	r5, r2, #100	; 0x64
+  3c:	f7ff fffe 	bl	50 <wait>
+  40:	6058      	str	r0, [r3, #4]
+  42:	f103 050c 	add.w	r5, r3, #12
+  46:	f7ff fffe 	bl	50 <wait>
+  4a:	e8bd 407f 	ldmia.w	sp!, {r0, r1, r2, r3, r4, r5, r6, lr}
+  4e:	4770      	bx	lr
+
+00000050 <wait>:
+  50:	b51c      	push	{r2, r3, r4, lr}
+  52:	f04f 0301 	mov.w	r3, #1
+  56:	eb03 3303 	add.w	r3, r3, r3, lsl #12
+
+0000005a <w01>:
+  5a:	3b01      	subs	r3, #1
+  5c:	d006      	beq.n	6c <wend>
+  5e:	682c      	ldr	r4, [r5, #0]
+  60:	f014 0f01 	tst.w	r4, #1
+  64:	d0f9      	beq.n	5a <w01>
+  66:	e8bd 401c 	ldmia.w	sp!, {r2, r3, r4, lr}
+  6a:	4770      	bx	lr
+
+0000006c <wend>:
+  6c:	f04f 35ff 	mov.w	r5, #4294967295
+  70:	e8bd 401c 	ldmia.w	sp!, {r2, r3, r4, lr}
+  74:	4770      	bx	lr
+
+00000076 <TIM2_IRQHandler>:
+  76:	b507      	push	{r0, r1, r2, lr}
+  78:	f04f 5080 	mov.w	r0, #268435456	; 0x10000000
+  7c:	4933      	ldr	r1, [pc, #204]	; (14c <del01+0x28>)
+  7e:	680a      	ldr	r2, [r1, #0]
+  80:	4202      	tst	r2, r0
+  82:	bf1c      	itt	ne
+  84:	4931      	ldrne	r1, [pc, #196]	; (14c <del01+0x28>)
+  86:	6008      	strne	r0, [r1, #0]
+  88:	bf00      	nop
+  8a:	4831      	ldr	r0, [pc, #196]	; (150 <del01+0x2c>)
+  8c:	6801      	ldr	r1, [r0, #0]
+  8e:	f101 0101 	add.w	r1, r1, #1
+  92:	6001      	str	r1, [r0, #0]
+
+00000094 <L01>:
+  94:	482f      	ldr	r0, [pc, #188]	; (154 <del01+0x30>)
+  96:	ea81 0101 	eor.w	r1, r1, r1
+  9a:	6001      	str	r1, [r0, #0]
+  9c:	e8bd 4007 	ldmia.w	sp!, {r0, r1, r2, lr}
+  a0:	4770      	bx	lr
+
+000000a2 <tim2Init>:
+  a2:	b50f      	push	{r0, r1, r2, r3, lr}
+  a4:	f04f 0001 	mov.w	r0, #1
+  a8:	492b      	ldr	r1, [pc, #172]	; (158 <del01+0x34>)
+  aa:	6008      	str	r0, [r1, #0]
+  ac:	f04f 4184 	mov.w	r1, #1107296256	; 0x42000000
+  b0:	4a2a      	ldr	r2, [pc, #168]	; (15c <del01+0x38>)
+  b2:	6048      	str	r0, [r1, #4]
+  b4:	6088      	str	r0, [r1, #8]
+  b6:	6010      	str	r0, [r2, #0]
+  b8:	61d0      	str	r0, [r2, #28]
+  ba:	4a29      	ldr	r2, [pc, #164]	; (160 <del01+0x3c>)
+  bc:	f64f 73ff 	movw	r3, #65535	; 0xffff
+  c0:	6013      	str	r3, [r2, #0]
+  c2:	4a28      	ldr	r2, [pc, #160]	; (164 <del01+0x40>)
+  c4:	f04f 0300 	mov.w	r3, #0
+  c8:	6013      	str	r3, [r2, #0]
+  ca:	f04f 5080 	mov.w	r0, #268435456	; 0x10000000
+  ce:	4926      	ldr	r1, [pc, #152]	; (168 <del01+0x44>)
+  d0:	680b      	ldr	r3, [r1, #0]
+  d2:	ea43 0300 	orr.w	r3, r3, r0
+  d6:	600b      	str	r3, [r1, #0]
+  d8:	4924      	ldr	r1, [pc, #144]	; (16c <del01+0x48>)
+  da:	f04f 0210 	mov.w	r2, #16
+  de:	f101 011c 	add.w	r1, r1, #28
+  e2:	700a      	strb	r2, [r1, #0]
+  e4:	f04f 4184 	mov.w	r1, #1107296256	; 0x42000000
+  e8:	f04f 0001 	mov.w	r0, #1
+  ec:	6008      	str	r0, [r1, #0]
+  ee:	f04f 0000 	mov.w	r0, #0
+  f2:	6048      	str	r0, [r1, #4]
+  f4:	f04f 4080 	mov.w	r0, #1073741824	; 0x40000000
+  f8:	6806      	ldr	r6, [r0, #0]
+  fa:	e8bd 400f 	ldmia.w	sp!, {r0, r1, r2, r3, lr}
+  fe:	4770      	bx	lr
+
+00000100 <Delay>:
+ 100:	b50f      	push	{r0, r1, r2, r3, lr}
+ 102:	481b      	ldr	r0, [pc, #108]	; (170 <del01+0x4c>)
+ 104:	4a12      	ldr	r2, [pc, #72]	; (150 <del01+0x2c>)
+ 106:	ea81 0101 	eor.w	r1, r1, r1
+ 10a:	6011      	str	r1, [r2, #0]
+ 10c:	f04f 0101 	mov.w	r1, #1
+ 110:	6803      	ldr	r3, [r0, #0]
+ 112:	2b00      	cmp	r3, #0
+ 114:	d106      	bne.n	124 <del01>
+ 116:	b420      	push	{r5}
+ 118:	f7ff fffe 	bl	a2 <tim2Init>
+ 11c:	420d      	tst	r5, r1
+ 11e:	bf18      	it	ne
+ 120:	6001      	strne	r1, [r0, #0]
+ 122:	bc20      	pop	{r5}
+
+00000124 <del01>:
+ 124:	6811      	ldr	r1, [r2, #0]
+ 126:	42a9      	cmp	r1, r5
+ 128:	d1fc      	bne.n	124 <del01>
+ 12a:	e8bd 400f 	ldmia.w	sp!, {r0, r1, r2, r3, lr}
+ 12e:	4770      	bx	lr
+	...
+ 138:	40021004 	.word	0x40021004
+ 13c:	42420000 	.word	0x42420000
+ 140:	42420080 	.word	0x42420080
+ 144:	42440000 	.word	0x42440000
+ 148:	001d8400 	.word	0x001d8400
+ 14c:	e000e280 	.word	0xe000e280
+ 150:	00000000 	.word	0x00000000
+ 154:	42000200 	.word	0x42000200
+ 158:	42420380 	.word	0x42420380
+ 15c:	42000180 	.word	0x42000180
+ 160:	4000002c 	.word	0x4000002c
+ 164:	40000028 	.word	0x40000028
+ 168:	e000e100 	.word	0xe000e100
+ 16c:	e000e400 	.word	0xe000e400
+ 170:	00000000 	.word	0x00000000
